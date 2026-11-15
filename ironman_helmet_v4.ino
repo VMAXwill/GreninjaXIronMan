@@ -12,47 +12,45 @@
 #include <OneButton.h>
 #include <VarSpeedServo.h>
 
-// ── PIN DEFINITIONS ──────────────────────────────────────────
 #define BUTTON_PIN     2
 #define RIGHT_EYE_PIN  3
 #define LEFT_EYE_PIN   6
 #define SERVO1_PIN     9
 #define SERVO2_PIN     10
 
-// ── PWM RANGE ────────────────────────────────────────────────
+//  PWM RANGE
 // If servos rumble/twitch, raise PWM_LOW or lower PWM_HIGH
 #define PWM_HIGH 2400
 #define PWM_LOW   600
 
-// ── SERVO POSITIONS ──────────────────────────────────────────
+//  SERVO POSITIONS 
 // Increase gap between OPEN and CLOSE if faceplate doesn't travel far enough
 #define SERVO1_OPEN_POS    20
 #define SERVO1_CLOSE_POS  160
 #define SERVO2_OPEN_POS   160  // Mirrored from servo 1
 #define SERVO2_CLOSE_POS   20
 
-// ── SERVO SPEEDS (0=slow, 255=fast) ──────────────────────────
+//  SERVO SPEEDS (0=slow, 255=fast) 
 #define SERVO_OPEN_SPEED   255
 #define SERVO_CLOSE_SPEED   60  // Slow = more torque for closing
 
-// ── FACEPLATE STATE ───────────────────────────────────────────
+//  FACEPLATE STATE 
 #define FACEPLATE_CLOSED 0
 #define FACEPLATE_OPEN   1
 int facePlateCurMode = FACEPLATE_OPEN;
 
-// ── LED EYE STATE ─────────────────────────────────────────────
+//  LED EYE STATE 
 #define LED_EYES_DIM_MODE      0
 #define LED_EYES_BRIGHTEN_MODE 1
 int ledEyesCurMode = LED_EYES_DIM_MODE;
 int ledEyesCurPwm  = 0;
 const int ledEyesIncrement = 15;
 
-// ── OBJECTS ───────────────────────────────────────────────────
+//  OBJECTS 
 VarSpeedServo servo1;
 VarSpeedServo servo2;
 OneButton primaryButton = OneButton(BUTTON_PIN, true, true);
 
-// ─────────────────────────────────────────────────────────────
 
 // Non-blocking delay helper
 void simDelay(long period) {
@@ -60,7 +58,7 @@ void simDelay(long period) {
   while (millis() <= endTime) {}
 }
 
-// ── LED EYE HELPERS ───────────────────────────────────────────
+//  LED EYE HELPERS 
 void setLedEyes(int pwmValue) {
   analogWrite(RIGHT_EYE_PIN, pwmValue);
   analogWrite(LEFT_EYE_PIN,  pwmValue);
@@ -98,7 +96,7 @@ void ledEyesFade() {
   simDelay(200);
 }
 
-// ── MOVIE BLINK STARTUP EFFECT ────────────────────────────────
+//   LIGHT STARTUP EFFECT 
 void movieBlink() {
   simDelay(300);
   int lowValue = 21;
@@ -116,7 +114,7 @@ void movieBlink() {
   ledEyesOn();
 }
 
-// ── SERVO OPEN / CLOSE ────────────────────────────────────────
+//  SERVO OPEN / CLOSE 
 void facePlateOpen() {
   servo1.attach(SERVO1_PIN, PWM_LOW, PWM_HIGH);
   servo2.attach(SERVO2_PIN, PWM_LOW, PWM_HIGH);
@@ -151,7 +149,7 @@ void facePlateClose() {
   facePlateCurMode = FACEPLATE_CLOSED;
 }
 
-// ── FACEPLATE FX (open/close with eye effects) ────────────────
+//  FACEPLATE FX (open/close with eye effects) 
 void facePlateOpenFx() {
   ledEyesOff();
   simDelay(100); // Let PWM settle before servos move
@@ -168,12 +166,12 @@ void facePlateFx() {
   else facePlateOpenFx();
 }
 
-// ── BUTTON HANDLERS ───────────────────────────────────────────
+//  BUTTON HANDLERS 
 void handleSingleTap()   { facePlateFx(); }
 void handleDoubleTap()   { ledEyesOnOff(); }
 void handleLongPress()   { ledEyesFade(); }
 
-// ─────────────────────────────────────────────────────────────
+
 void setup() {
   pinMode(LEFT_EYE_PIN,  OUTPUT);
   pinMode(RIGHT_EYE_PIN, OUTPUT);
