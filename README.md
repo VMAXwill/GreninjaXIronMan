@@ -43,6 +43,8 @@ Most .3mf files are in /models. Two were too big for GitHub
 Build Guide:
 The mask and mechanism follow the Frankly Built Iron Man series. It covers printing, finishing, the servo mechanism and the Arduino Nano electronics.
 This repo has my wiring, code and design changes.
+Frankly Built's Tutorial:
+https://youtube.com/playlist?list=PLKgY4vRp3bIp6fqhS8YXXfVQT1b8brJ2S&si=HCmHhu5HZvxOgGnN
 
 Credits:
 Built and modified by VMAXwill. Mask build based on the Frankly Built series.
