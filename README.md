@@ -1,6 +1,7 @@
 Greninja x Iron Man Suit
 A work-in-progress Iron Man suit build. The helmet is done and the rest of the suit will be added here as I build it.
 The helmet is motorized and controlled by an Arduino Nano. The faceplate opens and closes on servos and the eyes light up. Greninja-inspired design.
+I will try to upload my journey trough out my journey on Youtube. https://www.youtube.com/playlist?list=PLGPFVMZ9EYqFnI_BGQZUlnqB1J42vXPEu
 
 Contents;
 Progress
